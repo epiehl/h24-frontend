@@ -1,0 +1,14 @@
+<div class="col-lg-6 offset-lg-3">
+<ul class="list-group">
+  <li class="list-group-item list-group-item-action justify-content-between d-flex text-center shadow" *ngFor="let list of wishlists">
+    <a [routerLink]="['/wishlist', list.id]">{{list.name}}</a>
+    <button (click)="removeWishlist(list.id)" class="badge badge-danger badge-pill">Delete</button>
+  </li>
+  <li class="list-group-item justify-content-between d-flex text-center shadow">
+    <label>
+      Name: <input [(ngModel)]="wishlistName" placeholder="My super wishlist">
+    </label>
+    <button (click)="addNewWishlist(wishlistName)" class="badge badge-success badge-pill">Add</button>
+  </li>
+</ul>
+</div>

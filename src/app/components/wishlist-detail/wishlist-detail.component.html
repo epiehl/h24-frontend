@@ -1,0 +1,36 @@
+<ul class="list-group">
+  <li class="list-group-item text-center">ID: {{(wishlist | async)?.id}}</li>
+  <li class="list-group-item text-center">Name: {{(wishlist | async)?.name}}</li>
+</ul>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">sku #</th>
+    <th scope="col">name</th>
+    <th scope="col">retailPrice</th>
+    <th scope="col">retailDiscount</th>
+    <th scope="col">retailDiscountPrice</th>
+    <th scope="col">outletPrice</th>
+    <th scope="col">availableInOutlet</th>
+    <th scope="col">actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <th scope="row">{{item.sku}}</th>
+      <td>{{item.name}}</td>
+      <td>{{item.retail_price}}€</td>
+      <td>{{item.retail_discount}}€</td>
+      <td>{{item.retail_discount_price}}€</td>
+      <td>{{item.outlet_price}}€</td>
+      <td>{{item.available_in_outlet}}</td>
+      <td><button (click)="deleteItem(item.sku)" type="button" class="btn btn-danger">Remove</button></td>
+    </tr>
+    <tr>
+      <td><label>
+        <input [(ngModel)]="addSku" placeholder="1000016031">
+      </label></td>
+      <td><button (click)="addItem(addSku)" type="button" class="btn btn-primary btn-sm">Add new</button></td>
+    </tr>
+  </tbody>
+</table>

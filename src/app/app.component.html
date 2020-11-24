@@ -1,0 +1,27 @@
+<div class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0">
+    H24 Notifier
+  </a>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" (click)="login()" *ngIf="!userEmail">Sign in</a>
+      <a class="nav-link" (click)="logout()" *ngIf="userEmail">Sign out</a>
+    </li>
+  </ul>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li routerLink="/wishlist" class="nav-item">
+            <a class="nav-link">Wishlists</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<router-outlet></router-outlet>
+</main>
