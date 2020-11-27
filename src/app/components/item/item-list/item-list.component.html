@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <ngb-pagination class="col-lg-4 col-sm-10" (pageChange)="processPageChange($event)"
+                    [collectionSize]="numItems" [(page)]="page" [pageSize]="limit" [maxSize]="5" [rotate]="true"
+                    [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+  <div class="row">
+    <app-item-card *ngFor="let item of items" [item]="item" class="mb-3 col-sm-12 col-md-6 col-lg-3"></app-item-card>
+  </div>
+  <div class="row justify-content-center">
+    <ngb-pagination class="col-lg-4 col-sm-10 offset-sm-1" (pageChange)="processPageChange($event)"
+                    [collectionSize]="numItems" [(page)]="page" [pageSize]="limit" [maxSize]="5" [rotate]="true"
+                    [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+/* Color Theme Swatches in Hex */
+
+/* Color Theme Swatches in Hex */
+$color1: #BFBFBF;
+$color2: #6393A6;
+$color3: #8C8C8C;
+$color4: #404040;
+$color5: #262626;
+
+$theme-colors: (
+  "primary": rgb(255, 102, 0)
+);
+
+//$body-bg: $color3;
+$body-bg: rgb(255, 102, 0);
+
+.dropdown-toggle.btn.btn-primary::after {
+  display: none;
+}
+
+.dropdown-toggle.btn.btn-outline-primary::after {
+  display: none;
+}
+
+.inline-icon {
+  vertical-align: middle;
+  font-size: 22px !important;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.main-nav {
+  background-color: grey !important;
+}
+
+.main-nav .navbar-brand {
+  color: white;
+  font-size: 30px;
+}

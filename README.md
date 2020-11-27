@@ -1,3 +1,6 @@
+# EOL
+This project should have provided a wishlist feature for the home24 outlet store Hannover. I did this for learning purposes but did not get the permission to run this publicy.
+
 # H24FrontendAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.

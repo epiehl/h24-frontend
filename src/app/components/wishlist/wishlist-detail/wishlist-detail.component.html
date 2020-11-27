@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+    <nav class="navbar navbar-light bg-light shadow mb-1">
+      <span class="navbar-brand">{{(wishlist|async)?.name}}</span>
+      <div ngbDropdown display="dynamic" class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="material-icons">menu</i>
+        </button>
+        <div ngbDropdownMenu class="shadow" aria-labelledby="dropdownBasic1">
+          <button (click)="openCreateModal(addItemContent)" ngbDropdownItem>Artikel hinzufügen</button>
+          <div class="dropdown-divider"></div>
+          <button ngbDropdownItem (click)="removeWishlist()">Wunschliste löschen</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="row">
+    <div *ngFor="let item of items" class="card mb-3 shadow col-sm-12 col-md-6 col-lg-3">
+      <div class="card-header">
+        <h5 class="card-title flex-grow-1">{{item.name}}</h5>
+      </div>
+      <img class="card-img-top" src="{{item.image_url}}" alt="Card image cap">
+      <div class="card-body">
+        <div class="card-text small">
+          <div ngbDropdown class="d-inline-block dropright">
+            <button class="btn btn-outline-primary" ngbDropdownToggle><i class="material-icons">more_vert</i>
+            </button>
+            <div ngbDropdownMenu>
+              <button ngbDropdownItem (click)="gotoShopLink(item.retail_url)">Im Shop anzeigen</button>
+              <div class="dropdown-divider"></div>
+              <button ngbDropdownItem (click)="deleteItem(item.sku)">Artikel aus Liste entfernen</button>
+            </div>
+          </div>
+        </div>
+        <p class="card-text">ArtikelNr. / SKU: {{item.sku}}</p>
+        <p *ngIf="item.retail_discount_price <= 0" class="card-text">Preis: {{item.retail_price}} €</p>
+        <p *ngIf="item.retail_discount_price > 0" class="card-text">Preis: {{item.retail_discount_price}} €</p>
+        <p *ngIf="item.available_in_outlet"><i class="material-icons inline-icon" ngbTooltip="Preis im Outlet kann abweichen & ist oftmals sogar noch günstiger!">info</i> Outlet-Preis: {{item.outlet_price}} € <span
+          class="text-danger">- ca. {{this.getSavings(item)}}% gespart</span></p>
+        <p class="card-text">
+          <span *ngIf="item.available_in_outlet" class="badge badge-success m-auto">Im Outlet vorhanden</span>
+          <span *ngIf="item.available_in_retail" class="badge badge-info m-auto">Im Shop vorhanden</span>
+          <span *ngIf="!item.available_in_retail" class="badge badge-danger m-auto">Nicht im Shop vorhanden</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addItemContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Artikel hinzufügen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">SKU</span>
+      </div>
+      <input [(ngModel)]="addSku" type="text" class="form-control" aria-label="Sizing example input"
+             aria-describedby="inputGroup-sizing-sm">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('save click')">Speichern</button>
+  </div>
+</ng-template>
+
+<ng-template #removeItemContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Artikel hinzufügen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Möchtest du den Artikel wirklich entfernen?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('save click')">Entfernen</button>
+  </div>
+</ng-template>

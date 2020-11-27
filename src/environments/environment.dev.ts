@@ -1,8 +1,10 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: '',
   resourceServerAllowedUrls: [],
   ga: '',
   adClient: '',
   cookieConsentDomain: ''
 };
+
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

@@ -1,10 +1,9 @@
 import {Item} from './item';
 
-export class Wishlist {
-  id: number;
-  name: string;
+export class ItemList {
+  items: Item[];
   // tslint:disable-next-line:variable-name
-  example_image: string;
+  max_pages: number;
   // tslint:disable-next-line:variable-name
-  item_skus: number[];
+  num_items: number;
 }

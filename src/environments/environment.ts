@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080',
-  resourceServerAllowedUrls: ['http://localhost:8080']
+  apiUrl: '',
+  resourceServerAllowedUrls: ['http://localhost:4200'],
+  ga: '',
+  adClient: '',
+  cookieConsentDomain: 'localhost:4200'
 };
 
 /*

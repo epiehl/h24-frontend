@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - DOCKER_PASS=$(aws ecr get-login-password --region eu-central-1)
+      - docker login -u AWS -p $DOCKER_PASS 942928664695.dkr.ecr.eu-central-1.amazonaws.com
+  build:
+    commands:
+      - docker build --cache-from 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$DEPLOY_ENV-latest --build-arg BUILD_ENV=$DEPLOY_ENV -f deploy.Dockerfile -t 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$DEPLOY_ENV-latest .
+  post_build:
+    commands:
+      - docker push 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$DEPLOY_ENV-latest

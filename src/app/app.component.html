@@ -1,27 +1,41 @@
-<div class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0">
-    H24 Notifier
-  </a>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" (click)="login()" *ngIf="!userEmail">Sign in</a>
-      <a class="nav-link" (click)="logout()" *ngIf="userEmail">Sign out</a>
-    </li>
-  </ul>
+<div class="container-fluid mb-3">
+  <nav class="main-nav navbar navbar-light mt-2 bg-light justify-content-between col-sm-12 shadow">
+    <a class="navbar-brand mb-0 h1" routerLink="/">H24 Notifier</a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <div ngbDropdown #menuDropdown="ngbDropdown" container="body" display="dynamic" class="d-inline-block">
+          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="material-icons">menu</i>
+          </button>
+          <div ngbDropdownMenu class="shadow" aria-labelledby="dropdownBasic1">
+            <p *ngIf="userEmail" ngbDropdownItem>
+              Du bist angemeldet!
+            </p>
+            <button *ngIf="userEmail" ngbDropdownItem (click)="logout()">Ausloggen</button>
+            <p *ngIf="!userEmail" ngbDropdownItem>
+              Noch keinen Account?
+            </p>
+            <button *ngIf="!userEmail" ngbDropdownItem (click)="login()">Einloggen oder Registrieren</button>
+            <form class="px-4 py-3">
+              <div class="form-group">
+                <label for="articleSearchInDropdown">Nach Artikel suchen:</label>
+                <input #searchInput type="text" class="form-control" id="articleSearchInDropdown"
+                       placeholder="000001232312, Schrank, Stuhl, ....">
+              </div>
+              <button type="submit" (click)="navigateToItemSearch(menuDropdown, searchInput.value)" class="btn btn-primary">Suchen</button>
+            </form>
+            <div class="dropdown-divider"></div>
+            <button ngbDropdownItem routerLink="/items">Artikelübersicht</button>
+            <button ngbDropdownItem routerLink="/wishlists">Wunschlisten</button>
+            <div class="dropdown-divider"></div>
+            <button ngbDropdownItem routerLink="/contact">Kontakt</button>
+            <button ngbDropdownItem routerLink="/impressum">Impressum</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </nav>
 </div>
-<div class="container-fluid">
-  <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li routerLink="/wishlist" class="nav-item">
-            <a class="nav-link">Wishlists</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-</div>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 <router-outlet></router-outlet>
-</main>
+<div class="container-fluid mb-5"></div>
+

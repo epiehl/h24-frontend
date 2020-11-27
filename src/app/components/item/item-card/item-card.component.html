@@ -1,0 +1,58 @@
+<div [ngModel]="item" class="card shadow">
+  <div class="card-header">
+    <h5 class="card-title flex-grow-1">{{item.name}}</h5>
+  </div>
+  <img class="card-img-top" src="{{item.image_url}}" alt="Card image cap">
+  <div class="card-body">
+    <div class="card-text small">
+      <div ngbDropdown class="d-inline-block dropright">
+        <button class="btn btn-outline-primary" ngbDropdownToggle><i class="material-icons">more_vert</i>
+        </button>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem (click)="gotoShopLink(item.retail_url)">Im Shop anzeigen</button>
+          <div class="dropdown-divider"></div>
+          <button ngbDropdownItem (click)="openAddToWishlistModal(content, item.sku)" [disabled]="!userEmail">Zu
+            Wunschliste hinzufügen<span *ngIf="!userEmail" class="small"><br>(Melde dich an, um das Feature zu nutzen!)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <p class="card-text">ArtikelNr. / SKU: {{item.sku}}</p>
+    <p *ngIf="item.retail_discount_price <= 0" class="card-text">Preis: {{item.retail_price}} €</p>
+    <p *ngIf="item.retail_discount_price > 0" class="card-text">Preis: {{item.retail_discount_price}} €</p>
+    <p *ngIf="item.available_in_outlet">
+      <i class="material-icons inline-icon"
+         ngbTooltip="Preis im Outlet kann abweichen & ist oftmals sogar noch günstiger!">info</i>
+      Outlet-Preis: {{item.outlet_price}} € <span
+      class="text-danger">- ca. {{this.getSavings(item)}}% gespart</span></p>
+    <p class="card-text">
+      <span *ngIf="item.available_in_outlet" class="badge badge-success m-auto">Im Outlet vorhanden</span>
+      <span *ngIf="item.available_in_retail" class="badge badge-info m-auto">Im Shop vorhanden</span>
+      <span *ngIf="!item.available_in_retail" class="badge badge-danger m-auto">Nicht im Shop vorhanden</span>
+    </p>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Artikel zur Wunschliste hinzufügen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="wishlistSelect">Wunschliste</label>
+      <select [(ngModel)]="selectedWishlist" class="custom-select" id="wishlistSelect">
+        <option *ngFor="let list of wishlists" [ngValue]="list">{{list.name}}</option>
+        <option *ngIf="wishlists == null || wishlists.length === 0">Du hast leider noch keine Wunschliste!</option>
+      </select>
+    </div>
+    <button (click)="modal.dismiss('navigate to wishlists')" [routerLink]="['/wishlists']"
+            class="btn btn-outline-primary">Neue Wunschliste hinzufügen
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Speichern</button>
+  </div>
+</ng-template>
