@@ -97,5 +97,13 @@ Sidebar
  */
 
 [role="main"] {
-  padding-top: 48px; /* Space for fixed navbar */
+  padding-top: 56px; /* Space for fixed navbar */
+}
+
+.btn-open {
+  background-color: #999;
+}
+
+.item-table {
+  padding-top: 12px;
 }

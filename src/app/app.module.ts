@@ -11,12 +11,20 @@ import {WishlistListComponent} from './components/wishlist-list/wishlist-list.co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WishlistDetailComponent } from './components/wishlist-detail/wishlist-detail.component';
 import {FormsModule} from '@angular/forms';
+import { TosComponent } from './components/tos/tos.component';
+import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
+import { ImpressumComponent } from './components/impressum/impressum.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WishlistListComponent,
-    WishlistDetailComponent
+    WishlistDetailComponent,
+    TosComponent,
+    DatenschutzComponent,
+    ImpressumComponent,
+    ContactComponent
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +39,9 @@ import {FormsModule} from '@angular/forms';
     RouterModule.forRoot([
       {path: 'wishlist', component: WishlistListComponent},
       {path: 'wishlist/:id', component: WishlistDetailComponent},
-      {path: 'index.html', component: AppComponent}
+      {path: 'index.html', component: AppComponent},
+      {path: 'impressum', component: ImpressumComponent},
+      {path: 'contact', component: ContactComponent}
     ]),
     NgbModule,
     FormsModule

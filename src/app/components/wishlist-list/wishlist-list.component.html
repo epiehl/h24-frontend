@@ -1,4 +1,4 @@
-<div class="col-lg-6 offset-lg-3">
+<!--div class="col-lg-6 offset-lg-3">
 <ul class="list-group">
   <li class="list-group-item list-group-item-action justify-content-between d-flex text-center shadow" *ngFor="let list of wishlists">
     <a [routerLink]="['/wishlist', list.id]">{{list.name}}</a>
@@ -11,4 +11,30 @@
     <button (click)="addNewWishlist(wishlistName)" class="badge badge-success badge-pill">Add</button>
   </li>
 </ul>
+</div!-->
+<div class="row">
+  <div *ngFor="let wishlist of wishlists" class="card col-lg-4 shadow rounded">
+    <div class="card-body">
+      <h5 class="card-title">{{wishlist.name}}</h5>
+      <p class="card-text">
+        <span>Artikelanzahl: {{wishlist.item_skus.length}}</span>
+      </p>
+      <div class="card-text">
+        <button [routerLink]="['/wishlist', wishlist.id]" type="button" class="btn btn-open btn-light">Anzeigen</button>
+      </div>
+    </div>
+  </div>
+  <div class="card col-lg-4 shadow rounded">
+    <div class="card-body">
+      <h5 class="card-title">Neue Wunschliste</h5>
+      <div class="card-text">
+        <label> Name:
+          <input [(ngModel)]="wishlistName" class="card-title">
+        </label>
+      </div>
+      <div class="card-text">
+        <button (click)="addNewWishlist(wishlistName)" type="button" class="btn btn-open btn-light">Erstellen</button>
+      </div>
+    </div>
+  </div>
 </div>

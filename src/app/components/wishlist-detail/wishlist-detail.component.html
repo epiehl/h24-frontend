@@ -1,36 +1,61 @@
-<ul class="list-group">
-  <li class="list-group-item text-center">ID: {{(wishlist | async)?.id}}</li>
-  <li class="list-group-item text-center">Name: {{(wishlist | async)?.name}}</li>
-</ul>
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">sku #</th>
-    <th scope="col">name</th>
-    <th scope="col">retailPrice</th>
-    <th scope="col">retailDiscount</th>
-    <th scope="col">retailDiscountPrice</th>
-    <th scope="col">outletPrice</th>
-    <th scope="col">availableInOutlet</th>
-    <th scope="col">actions</th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of items">
-      <th scope="row">{{item.sku}}</th>
-      <td>{{item.name}}</td>
-      <td>{{item.retail_price}}€</td>
-      <td>{{item.retail_discount}}€</td>
-      <td>{{item.retail_discount_price}}€</td>
-      <td>{{item.outlet_price}}€</td>
-      <td>{{item.available_in_outlet}}</td>
-      <td><button (click)="deleteItem(item.sku)" type="button" class="btn btn-danger">Remove</button></td>
-    </tr>
+<h1>{{(wishlist | async)?.name}}</h1>
+<div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle>Aktionen</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem (click)="open(content)">Löschen</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row item-table">
+  <table class="table">
+    <thead>
     <tr>
-      <td><label>
-        <input [(ngModel)]="addSku" placeholder="1000016031">
-      </label></td>
-      <td><button (click)="addItem(addSku)" type="button" class="btn btn-primary btn-sm">Add new</button></td>
+      <th scope="col">SKU #</th>
+      <th scope="col">Name</th>
+      <th scope="col">Preis im Shop</th>
+      <th scope="col">Rabatt im Shop</th>
+      <th scope="col">Preis inklusive Rabatt im Shop</th>
+      <th scope="col">Preis im Outlet</th>
+      <th scope="col">Im Outlet vorhanden</th>
+      <th scope="col">Aktionen</th>
     </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <th scope="row">{{item.sku}}</th>
+        <td>{{item.name}}</td>
+        <td>{{item.retail_price > 0 ? item.retail_price + '€' : '-'}}</td>
+        <td>{{item.retail_discount > 0 ? item.retail_discount + '€' : '-'}}</td>
+        <td>{{item.retail_discount_price > 0 ? item.retail_discount_price + '€' : '-'}}</td>
+        <td>{{item.outlet_price > 0 ? item.outlet_price + '€' : '-'}}</td>
+        <td>{{item.available_in_outlet === true ? 'ja' : 'nein'}}</td>
+        <td><button (click)="deleteItem(item.sku)" type="button" class="btn btn-danger btn-sm">Entfernen</button></td>
+      </tr>
+      <tr>
+        <td><label>
+          <input [(ngModel)]="addSku" placeholder="1000016031">
+        </label></td>
+        <td><button (click)="addItem(addSku)" type="button" class="btn btn-primary btn-sm">Neuen Artikel hinzufügen</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Willst du deine Wunschliste wirklich löschen?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Nach dem Löschen ist die Wunschliste nicht wiederherstellbar. Du wirst keine Benachrichtigungen über Artikel aus dieser
+    Wunschliste mehr bekommen.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Delete click')">Delete</button>
+  </div>
+</ng-template>

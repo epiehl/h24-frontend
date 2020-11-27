@@ -9,5 +9,7 @@ export const authCodeFlowConfig: AuthConfig = {
   scope: 'openid',
   showDebugInformation: true,
   strictDiscoveryDocumentValidation: false,
-  timeoutFactor: 0.75
+  timeoutFactor: 0.75,
+  logoutUrl: 'https://h24-local.auth.eu-central-1.amazoncognito.com/logout',
+  postLogoutRedirectUri: window.location.origin
 };

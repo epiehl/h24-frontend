@@ -23,12 +23,6 @@ export class WishlistListComponent implements OnInit {
       this.loadWishlists();
     });
   }
-  removeWishlist(id: number): void {
-    this.h24Backend.removeWishlist(id).subscribe(() => {
-      this.wishlists = [];
-      this.loadWishlists();
-    });
-  }
   ngOnInit(): void {
     this.loadWishlists();
   }
