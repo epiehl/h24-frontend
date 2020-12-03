@@ -16,4 +16,4 @@ cache:
     - 'node_modules/**/*'
 artifacts:
   files:
-    - 'dist-*/**/*'
+    - 'dist*/**/*'
