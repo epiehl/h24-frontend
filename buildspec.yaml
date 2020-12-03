@@ -7,7 +7,7 @@ phases:
       - docker login -u AWS -p $DOCKER_PASS 942928664695.dkr.ecr.eu-central-1.amazonaws.com
   build:
     commands:
-      - docker build --cache-from 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$CODEBUILD_SOURCE_VERSION-latest -f deploy.Dockerfile -t 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$CODEBUILD_SOURCE_VERSION-latest .
+      - docker build --cache-from 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$DEPLOY_ENV-latest -f deploy.Dockerfile -t 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$DEPLOY_ENV-latest .
   post_build:
     commands:
-      - docker push 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$CODEBUILD_SOURCE_VERSION-latest
+      - docker push 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$DEPLOY_ENV-latest
