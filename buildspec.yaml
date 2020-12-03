@@ -9,8 +9,7 @@ phases:
       - npm i
   build:
     commands:
-      - ng build --configuration=dev
-      - mv dist dist-$CODEBUILD_SOURCE_VERSION
+      - ng build --configuration=$DEPLOY_ENV
 cache:
   paths:
     - 'node_modules/**/*'
