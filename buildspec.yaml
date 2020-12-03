@@ -10,9 +10,10 @@ phases:
   build:
     commands:
       - ng build --configuration=dev
+      - mv dist dist-$CODEBUILD_SOURCE_VERSION
 cache:
   paths:
     - 'node_modules/**/*'
 artifacts:
   files:
-    - 'dist/**/*'
+    - 'dist-*/**/*'
