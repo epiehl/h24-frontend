@@ -1,10 +1,11 @@
 FROM 942928664695.dkr.ecr.eu-central-1.amazonaws.com/node:15-alpine as build-step
+ARG BUILD_ENV=prod
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY . /app
-RUN npm run build --prod
+RUN npm run build --configuration=$BUILD_ENV
 
 FROM 942928664695.dkr.ecr.eu-central-1.amazonaws.com/nginx:1.19-alpine
 ADD nginx/default.conf /etc/nginx/conf.d/default.conf
