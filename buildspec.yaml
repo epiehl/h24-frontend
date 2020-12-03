@@ -1,18 +1,13 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      nodejs: latest
+  pre_build:
     commands:
-      - npm install -g @angular/cli
-      - npm i
+      - DOCKER_PASS=$(aws ecr get-login-password --region eu-central-1)
+      - docker login -u AWS -p $DOCKER_PASS 942928664695.dkr.ecr.eu-central-1.amazonaws.com
   build:
     commands:
-      - ng build --configuration=$DEPLOY_ENV
-cache:
-  paths:
-    - 'node_modules/**/*'
-artifacts:
-  files:
-    - 'dist/**/*'
+      - docker build --cache-from 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$CODEBUILD_SOURCE_VERSION-latest -f deploy.Dockerfile -t 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$CODEBUILD_SOURCE_VERSION-latest .
+  post_build:
+    commands:
+      - docker push 942928664695.dkr.ecr.eu-central-1.amazonaws.com/h24-frontend:$CODEBUILD_SOURCE_VERSION-latest
