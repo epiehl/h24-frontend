@@ -8,6 +8,9 @@ phases:
     commands:
       - npm i
       - ng build --configuration=dev
+  cache:
+    paths:
+      - 'node_modules/**/*'
   artifacts:
     files:
-      - 'dist/*'
+      - 'dist/**/*'
