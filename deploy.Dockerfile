@@ -3,9 +3,10 @@ ARG BUILD_ENV=prod
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
+RUN npm install -g @angular/cli
 RUN npm install
 COPY . /app
-RUN npm run build --configuration=$BUILD_ENV
+RUN ng build --configuration=$BUILD_ENV
 
 FROM 942928664695.dkr.ecr.eu-central-1.amazonaws.com/nginx:1.19-alpine
 ADD nginx/default.conf /etc/nginx/conf.d/default.conf
