@@ -1,40 +1,36 @@
-<!--div class="col-lg-6 offset-lg-3">
-<ul class="list-group">
-  <li class="list-group-item list-group-item-action justify-content-between d-flex text-center shadow" *ngFor="let list of wishlists">
-    <a [routerLink]="['/wishlist', list.id]">{{list.name}}</a>
-    <button (click)="removeWishlist(list.id)" class="badge badge-danger badge-pill">Delete</button>
-  </li>
-  <li class="list-group-item justify-content-between d-flex text-center shadow">
-    <label>
-      Name: <input [(ngModel)]="wishlistName" placeholder="My super wishlist">
-    </label>
-    <button (click)="addNewWishlist(wishlistName)" class="badge badge-success badge-pill">Add</button>
-  </li>
-</ul>
-</div!-->
-<div class="row">
-  <div *ngFor="let wishlist of wishlists" class="card col-lg-4 shadow rounded">
+<div class="container-fluid">
+  <div class="card mb-3 shadow" *ngFor="let list of wishlists">
+    <img src="{{list.example_image}}" class="card-img-top" alt="cover image">
     <div class="card-body">
-      <h5 class="card-title">{{wishlist.name}}</h5>
-      <p class="card-text">
-        <span>Artikelanzahl: {{wishlist.item_skus.length}}</span>
-      </p>
-      <div class="card-text">
-        <button [routerLink]="['/wishlist', wishlist.id]" type="button" class="btn btn-open btn-light">Anzeigen</button>
-      </div>
+      <h5 class="card-title">{{list.name}}</h5>
+      <a [routerLink]="['/wishlist', list.id]" class="btn btn-primary">Auswählen</a>
     </div>
   </div>
-  <div class="card col-lg-4 shadow rounded">
+  <div class="card shadow">
     <div class="card-body">
       <h5 class="card-title">Neue Wunschliste</h5>
-      <div class="card-text">
-        <label> Name:
-          <input [(ngModel)]="wishlistName" class="card-title">
-        </label>
-      </div>
-      <div class="card-text">
-        <button (click)="addNewWishlist(wishlistName)" type="button" class="btn btn-open btn-light">Erstellen</button>
-      </div>
+      <button class="btn btn-outline-primary" (click)="open(content)">Erstellen</button>
     </div>
   </div>
 </div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Neue Wunschliste anlegen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+      </div>
+      <input [(ngModel)]="newWishlistName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('save click')">Speichern</button>
+  </div>
+</ng-template>

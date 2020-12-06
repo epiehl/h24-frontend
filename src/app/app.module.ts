@@ -8,13 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {environment} from '../environments/environment';
 import {RouterModule} from '@angular/router';
 import {WishlistListComponent} from './components/wishlist-list/wishlist-list.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WishlistDetailComponent } from './components/wishlist-detail/wishlist-detail.component';
 import {FormsModule} from '@angular/forms';
 import { TosComponent } from './components/tos/tos.component';
 import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { ContactComponent } from './components/contact/contact.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './components/home/home.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import { ContactComponent } from './components/contact/contact.component';
     TosComponent,
     DatenschutzComponent,
     ImpressumComponent,
-    ContactComponent
+    ContactComponent,
+    HomeComponent
   ],
   imports: [
+    CommonModule,
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
@@ -41,7 +45,8 @@ import { ContactComponent } from './components/contact/contact.component';
       {path: 'wishlist/:id', component: WishlistDetailComponent},
       {path: 'index.html', component: AppComponent},
       {path: 'impressum', component: ImpressumComponent},
-      {path: 'contact', component: ContactComponent}
+      {path: 'contact', component: ContactComponent},
+      {path: '', component: HomeComponent}
     ]),
     NgbModule,
     FormsModule

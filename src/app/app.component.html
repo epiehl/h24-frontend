@@ -1,41 +1,31 @@
-<div class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a routerLink="/" class="navbar-brand col-sm-3 col-md-2 mr-0">
-    H24 Notifier
-  </a>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" (click)="login()" *ngIf="!userEmail">Einloggen</a>
-      <a class="nav-link" (click)="logout()" *ngIf="userEmail">Ausloggen</a>
-    </li>
-  </ul>
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li routerLink="/wishlist" class="nav-item">
-            <a class="nav-link">Wunschlisten</a>
-          </li>
-        </ul>
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>About</span>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item align-bottom" routerLink="/contact">
-            <a class="nav-link">Kontakt</a>
-          </li>
-          <li class="nav-item align-bottom" routerLink="/impressum">
-            <a class="nav-link">Impressum</a>
-          </li>
-        </ul>
-      </div>
+<div class="container-fluid mb-3">
+    <nav class="navbar navbar-light bg-light justify-content-between col-sm-12 shadow">
+      <a class="navbar-brand mb-0 h1" routerLink="/">H24 Notifier</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <div ngbDropdown display="dynamic" class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+              <i class="material-icons">menu</i>
+            </button>
+            <div ngbDropdownMenu class="shadow" aria-labelledby="dropdownBasic1">
+              <p *ngIf="userEmail" ngbDropdownItem>
+                Du bist angemeldet!
+              </p>
+              <button *ngIf="userEmail" ngbDropdownItem (click)="logout()">Ausloggen</button>
+              <p *ngIf="!userEmail" ngbDropdownItem>
+                Noch keinen Account?
+              </p>
+              <button *ngIf="!userEmail" ngbDropdownItem (click)="login()">Einloggen oder Registrieren</button>
+              <div class="dropdown-divider"></div>
+              <button ngbDropdownItem routerLink="/wishlist">Wunschlisten</button>
+              <div class="dropdown-divider"></div>
+              <button ngbDropdownItem routerLink="/contact">Kontakt</button>
+              <button ngbDropdownItem routerLink="/impressum">Impressum</button>
+            </div>
+          </div>
+        </li>
+      </ul>
     </nav>
-  </div>
 </div>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-  <div class="row">
-    <h6>Information: Dieses Tool befindet sich in der Beta-Phase. Solltet ihr Probleme haben, dann wendet euch bitte an die Adresse unter /contact</h6>
-  </div>
 <router-outlet></router-outlet>
-</main>
+

@@ -45,6 +45,11 @@ export class H24BackendService {
       catchError(this.handleError<Item>('getItemBySKU'))
     );
   }
+  getItemsPaginated(limit: number, page: number): Observable<Item[]> {
+    return this.http.get<Item[]>(this.baseUrl + '/item').pipe(
+      catchError(this.handleError<Item>('getItemsPaginated'))
+    );
+  }
   deleteItemFromWishlist(id: number, sku: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + '/wishlist/' + id + '/item/' + sku).pipe(
       catchError(this.handleError<any>('deleteItemFromWishlist'))

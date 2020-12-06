@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {H24BackendService} from '../../services/h24-backend.service';
 import {Wishlist} from '../../models/wishlist';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-wishlist-list',
@@ -9,19 +10,32 @@ import {Wishlist} from '../../models/wishlist';
 })
 export class WishlistListComponent implements OnInit {
   wishlists: Wishlist[];
-  columnsToDisplay = ['id'];
-  wishlistName: string;
-  constructor(private h24Backend: H24BackendService) { }
+  closeResult = '';
+  newWishlistName: string;
+  constructor(private h24Backend: H24BackendService, private modalService: NgbModal) { }
   loadWishlists(): void {
     this.h24Backend.getAllWishlists().subscribe(list => {
       this.wishlists = list;
     });
   }
-  addNewWishlist(name: string): void {
-    this.h24Backend.addWishlist(name).subscribe(() => {
-      this.wishlists = [];
-      this.loadWishlists();
+  open(content): void {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = result;
+      this.h24Backend.addWishlist(this.newWishlistName).subscribe(() => {
+        this.loadWishlists();
+      });
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
   ngOnInit(): void {
     this.loadWishlists();
